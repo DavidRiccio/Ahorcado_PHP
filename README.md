@@ -2,13 +2,17 @@
 
 Un juego clásico del Ahorcado implementado en PHP con arquitectura orientada a objetos, gestión de sesiones y sistema de categorías.
 
-![Boceto del diseño](boceto.jpg)
+<p align="center">
+  <img width="600" src="/ahorcado1/src/images/boceto.png" alt="Boceto del diseño">
+</p>
 
 ## 📋 Descripción
 
 Este proyecto implementa el juego del Ahorcado con una interfaz web moderna y responsiva[file:99]. El juego permite a los usuarios adivinar palabras de diferentes categorías, con un sistema de intentos limitados y persistencia de estado mediante sesiones PHP[file:102].
 
-![Captura del juego](ahorcado1.jpg)
+<p align="center">
+  <img width="600" src="/ahorcado1/src/images/ahorcado1.png" alt="Boceto del diseño">
+</p>
 
 ## 🏗️ Arquitectura del Proyecto
 
