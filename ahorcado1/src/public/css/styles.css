@@ -1,0 +1,302 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f7f7f7;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #2d3436;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    padding: 40px;
+    max-width: 800px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #2d3436;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    font-weight: 700;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #fafafa;
+    border-radius: 15px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.info-item {
+    font-size: 1.1em;
+    color: #636e72;
+}
+
+.info-item strong {
+    color: #0984e3;
+    font-weight: 600;
+}
+
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.hangman-drawing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fafafa;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.hangman-drawing pre {
+    font-size: 1.4em;
+    line-height: 1.2;
+    color: #2d3436;
+    font-weight: 500;
+    font-family: 'Fira Code', monospace;
+}
+
+.word-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.masked-word {
+    font-size: 3.5em;
+    letter-spacing: 20px;
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 30px;
+    font-family: 'Fira Code', monospace;
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.letter-btn {
+    aspect-ratio: 1;
+    font-size: 1.3em;
+    font-weight: 600;
+    border: none;
+    background: #f1f2f6;
+    color: #2d3436;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.letter-btn:hover:not(:disabled) {
+    background: #0984e3;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(9, 132, 227, 0.2);
+}
+
+.letter-btn:disabled {
+    background: #dfe6e9;
+    color: #b2bec3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.used-letters {
+    background: #fafafa;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.used-letters h3 {
+    color: #636e72;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.used-letters-list {
+    font-size: 1.3em;
+    color: #d63031;
+    letter-spacing: 8px;
+    font-weight: 600;
+    font-family: 'Fira Code', monospace;
+}
+
+.game-over {
+    position: relative;
+    text-align: center;
+    padding: 2.5rem;
+    background: #fff;
+    color: #2d3436;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.game-over::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+}
+
+.game-over.won {
+    background: #f8f9fa;
+    border-color: #e9ecef;
+}
+
+.game-over.won::before {
+    background: #2ecc71;
+}
+
+.game-over.lost {
+    background: #f8f9fa;
+    border-color: #e9ecef;
+}
+
+.game-over.lost::before {
+    background: #e74c3c;
+}
+
+.game-over h2 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #2d3436;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.game-over p {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    color: #636e72;
+    line-height: 1.5;
+}
+
+.game-over .word-reveal {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: #f1f2f6;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-weight: 500;
+    color: #2d3436;
+    letter-spacing: 1px;
+}
+
+.controls {
+    text-align: center;
+}
+
+.reset-btn {
+    padding: 16px 48px;
+    font-size: 1.2em;
+    font-weight: 600;
+    background: #0984e3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(9, 132, 227, 0.2);
+}
+
+.reset-btn:hover {
+    background: #0984e3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(9, 132, 227, 0.3);
+}
+
+.category-selector {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.category-selector select {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    color: #2d3436;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 200px;
+    font-family: 'Inter', sans-serif;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232d3436' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+.category-selector select:hover {
+    border-color: #0984e3;
+    box-shadow: 0 2px 8px rgba(9, 132, 227, 0.1);
+}
+
+.category-selector select:focus {
+    outline: none;
+    border-color: #0984e3;
+    box-shadow: 0 0 0 3px rgba(9, 132, 227, 0.2);
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .game-area {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .masked-word {
+        font-size: 2.5em;
+        letter-spacing: 15px;
+    }
+    
+    .keyboard {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+    }
+    
+    .letter-btn {
+        font-size: 1.1em;
+    }
+}

@@ -1,0 +1,50 @@
+{
+    "programming": {
+        "words": [
+            "php",
+            "json",
+            "namespace",
+            "patron",
+            "clase",
+            "objeto",
+            "javascript",
+            "python",
+            "react",
+            "angular",
+            "laravel",
+            "symfony"
+        ]
+    },
+    "Peliculas": {
+        "words": [
+            "matrix",
+            "titanic",
+            "avatar",
+            "gladiator",
+            "rocky",
+            "alien",
+            "terminator",
+            "batman",
+            "superman",
+            "jaws",
+            "inception",
+            "avengers"
+        ]
+    },
+    "Series": {
+        "words": [
+            "friends",
+            "lost",
+            "breaking bad",
+            "stranger things",
+            "game of thrones",
+            "dexter",
+            "house",
+            "simpsons",
+            "mandalorian",
+            "westworld",
+            "dark",
+            "office"
+        ]
+    }
+}
