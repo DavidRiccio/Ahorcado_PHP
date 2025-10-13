@@ -18,12 +18,12 @@ use App\Domain\Entity\Renderer;
 $storage = new Storage();
 $renderer = new Renderer();
 
-// Manejar cambio de categoría
+
 if (isset($_POST['category'])) {
-    $storage->reset(); // Reiniciar el juego al cambiar de categoría
+    $storage->reset(); 
 }
 
-// Obtener o establecer la categoría
+
 $category = $storage->get('category') ?? 'programming';
 if (isset($_POST['category'])) {
     $category = $_POST['category'];
@@ -42,36 +42,36 @@ if (!$word) {
 $maxAttempts = 6;
 $game = new Game($word, $maxAttempts, $state);
 
-// Procesar entrada del usuario
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['letter'])) {
-        // Procesar intento de letra
+        
         $game->guessLetter($_POST['letter']);
         
-        // Guardar estado del juego
+        
         $storage->set('state', $game->toState());
     }
     
     if (isset($_POST['reset'])) {
-        // Reiniciar juego
+        
         $storage->reset();
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit;
     }
 }
 
-// Verificar estado del juego
+
 $isWon = $game->isWon();
 $isLost = $game->isLost();
 $isGameOver = $isWon || $isLost;
 
-// Obtener datos del juego
+
 $maskedWord = $game->getMaskedWord();
 $attemptsLeft = $game->getAttemptsLeft();
 $usedLetters = $game->getUsedLetters();
 $asciiArt = $renderer->ascii($attemptsLeft);
 
-// Alfabeto completo para los botones
+
 $alphabet = range('A', 'Z');
 ?>
 <!DOCTYPE html>
@@ -81,7 +81,6 @@ $alphabet = range('A', 'Z');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego del Ahorcado</title>
     <link rel="stylesheet" href="css/styles.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
     </style>
 </head>
