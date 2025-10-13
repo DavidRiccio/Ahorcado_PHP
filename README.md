@@ -1,18 +1,11 @@
 # 🎮 El Ahorcado - Juego en PHP
 
 Un juego clásico del Ahorcado implementado en PHP con arquitectura orientada a objetos, gestión de sesiones y sistema de categorías.
-
-<p align="center">
-  <img width="600" src="/ahorcado1/src/images/boceto.png" alt="Boceto del diseño">
-</p>
+
 
 ## 📋 Descripción
 
-Este proyecto implementa el juego del Ahorcado con una interfaz web moderna y responsiva[file:99]. El juego permite a los usuarios adivinar palabras de diferentes categorías, con un sistema de intentos limitados y persistencia de estado mediante sesiones PHP[file:102].
-
-<p align="center">
-  <img width="600" src="/ahorcado1/src/images/ahorcado1.png" alt="Boceto del diseño">
-</p>
+Este proyecto implementa el juego del Ahorcado con una interfaz web moderna y responsiva. El juego permite a los usuarios adivinar palabras de diferentes categorías, con un sistema de intentos limitados y persistencia de estado mediante sesiones PH.
 
 ## 🏗️ Arquitectura del Proyecto
 
@@ -20,7 +13,7 @@ El proyecto está estructurado en cuatro clases principales siguiendo el princip
 
 ### 1️⃣ Clase `Game`
 
-**Responsabilidad**: Gestiona toda la lógica del juego del Ahorcado[file:101].
+**Responsabilidad**: Gestiona toda la lógica del juego del Ahorcado.
 
 #### Propiedades Privadas
 - `array $usedLetters`: Almacena las letras que el jugador ha utilizado
@@ -35,124 +28,124 @@ El proyecto está estructurado en cuatro clases principales siguiendo el princip
 - Parámetros:
   - `$word`: Palabra a adivinar en MAYÚSCULAS
   - `$maxAttempts`: Número máximo de intentos (por defecto 6)
-  - `$state`: Estado serializado para restaurar una partida guardada[file:101]
+  - `$state`: Estado serializado para restaurar una partida guardada
 
 **`guessLetter(string $letter): bool`**
 - Procesa un intento de letra del jugador
 - Normaliza la letra a MAYÚSCULA
 - Ignora letras repetidas
 - Reduce intentos si la letra no está en la palabra
-- Retorna `true` si la letra es correcta, `false` en caso contrario[file:101]
+- Retorna `true` si la letra es correcta, `false` en caso contrario
 
 **`getMaskedWord(): string`**
 - Devuelve la palabra con guiones bajos para letras no descubiertas
 - Las letras acertadas se muestran en su posición correcta
-- Ejemplo: "C_S_" para la palabra "CASA" con letras C y S descubiertas[file:101]
+- Ejemplo: "C_S_" para la palabra "CASA" con letras C y S descubiertas
 
 **`getAttemptsLeft(): int`**
-- Retorna el número de intentos restantes en la partida actual[file:101]
+- Retorna el número de intentos restantes en la partida actual
 
 **`getUsedLetters(): array`**
-- Devuelve un array con todas las letras ya jugadas en MAYÚSCULAS[file:101]
+- Devuelve un array con todas las letras ya jugadas en MAYÚSCULAS
 
 **`isWon(): bool`**
 - Verifica si el jugador ha ganado
-- Retorna `true` si todas las letras de la palabra han sido descubiertas[file:101]
+- Retorna `true` si todas las letras de la palabra han sido descubiertas
 
 **`isLost(): bool`**
 - Verifica si el jugador ha perdido
-- Retorna `true` si no quedan intentos disponibles[file:101]
+- Retorna `true` si no quedan intentos disponibles
 
 **`getWord(): string`**
-- Retorna la palabra objetivo completa en MAYÚSCULAS[file:101]
+- Retorna la palabra objetivo completa en MAYÚSCULAS
 
 **`toState(): array`**
 - Serializa el estado actual del juego para persistencia en sesión
-- Retorna un array con `attemptsLeft` y `usedLetters`[file:101]
+- Retorna un array con `attemptsLeft` y `usedLetters`
 
 ---
 
 ### 2️⃣ Clase `WordProvider`
 
-**Responsabilidad**: Provee palabras aleatorias para el juego desde un archivo JSON con sistema de categorías[file:100].
+**Responsabilidad**: Provee palabras aleatorias para el juego desde un archivo JSON con sistema de categorías.
 
 #### Propiedades Privadas
 - `string $category`: Categoría de palabras seleccionada
 - `array $words`: Lista de palabras cargadas de la categoría
-- `const WORDS_FILE`: Ruta al archivo JSON de palabras[file:100]
+- `const WORDS_FILE`: Ruta al archivo JSON de palabras
 
 #### Métodos Públicos
 
 **`__construct(string $category = 'general')`**
 - Inicializa el proveedor con una categoría específica
 - Carga las palabras del archivo JSON automáticamente
-- Lanza excepciones si el archivo no existe o la categoría no es válida[file:100]
+- Lanza excepciones si el archivo no existe o la categoría no es válida.
 
 **`randomWord(): string`**
 - Retorna una palabra aleatoria de la categoría seleccionada
 - La palabra se devuelve en MAYÚSCULAS
-- Lanza excepción si no hay palabras disponibles[file:100]
+- Lanza excepción si no hay palabras disponibles
 
 **`getCategory(): string`**
-- Retorna el nombre de la categoría actual[file:100]
+- Retorna el nombre de la categoría actual
 
 **`static getAvailableCategories(): array`**
 - Método estático que retorna todas las categorías disponibles en el archivo JSON
-- Útil para generar menús de selección de categoría[file:100]
+- Útil para generar menús de selección de categoría
 
 #### Métodos Privados
 
 **`loadWords(): void`**
 - Carga las palabras desde el archivo JSON
 - Valida la estructura del archivo y la existencia de la categoría
-- Lanza excepciones detalladas en caso de errores[file:100]
+- Lanza excepciones detalladas en caso de errores
 
 ---
 
 ### 3️⃣ Clase `Storage`
 
-**Responsabilidad**: Gestiona la persistencia del estado del juego en la sesión de PHP[file:102].
+**Responsabilidad**: Gestiona la persistencia del estado del juego en la sesión de PHP.
 
 #### Propiedades Privadas
-- `string $key`: Clave de namespace en `$_SESSION` (por defecto 'ahorcado')[file:102]
+- `string $key`: Clave de namespace en `$_SESSION` (por defecto 'ahorcado')
 
 #### Métodos Públicos
 
 **`__construct(string $key = 'ahorcado')`**
 - Inicializa el almacenamiento con un namespace específico
 - Inicia la sesión PHP automáticamente si no está activa
-- Crea el espacio de datos en `$_SESSION` si no existe[file:102]
+- Crea el espacio de datos en `$_SESSION` si no existe
 
 **`get(string $name, $default = null)`**
 - Recupera un valor almacenado en la sesión
 - Parámetros:
   - `$name`: Nombre de la clave a recuperar
   - `$default`: Valor por defecto si la clave no existe
-- Retorna el valor almacenado o el valor por defecto[file:102]
+- Retorna el valor almacenado o el valor por defecto
 
 **`set(string $name, $value): void`**
 - Guarda un valor en la sesión bajo el namespace del juego
 - Parámetros:
   - `$name`: Nombre de la clave
-  - `$value`: Valor a almacenar (puede ser cualquier tipo serializable)[file:102]
+  - `$value`: Valor a almacenar (puede ser cualquier tipo serializable)
 
 **`reset(): void`**
 - Elimina completamente el estado almacenado del juego
 - Reinicializa el namespace vacío
-- Útil para comenzar una nueva partida[file:102]
+- Útil para comenzar una nueva partida.
 
 #### Métodos Privados
 
 **`initSession(): void`**
 - Verifica si la sesión está activa antes de iniciarla
 - Inicializa el namespace en `$_SESSION` si no existe
-- Previene errores de "headers already sent"[file:102]
+- Previene errores de "headers already sent".
 
 ---
 
 ### 4️⃣ Clase `Renderer`
 
-**Responsabilidad**: Genera el dibujo ASCII del ahorcado según los intentos restantes[file:99].
+**Responsabilidad**: Genera el dibujo ASCII del ahorcado según los intentos restantes.
 
 #### Métodos Públicos
 
@@ -161,7 +154,7 @@ El proyecto está estructurado en cuatro clases principales siguiendo el princip
 - Parámetros:
   - `$attemptsLeft`: Número de intentos restantes (0-6)
 - Retorna una cadena HTML con el dibujo envuelto en etiqueta `<pre>`
-- El dibujo se vuelve más completo a medida que disminuyen los intentos[file:99]
+- El dibujo se vuelve más completo a medida que disminuyen los intentos.
 
 #### Etapas del Dibujo
 - **6 intentos**: Solo la horca vacía
@@ -170,7 +163,7 @@ El proyecto está estructurado en cuatro clases principales siguiendo el princip
 - **3 intentos**: Horca + cabeza + cuerpo + brazo izquierdo
 - **2 intentos**: Horca + cabeza + cuerpo + ambos brazos
 - **1 intento**: Horca + cabeza + cuerpo + brazos + pierna izquierda
-- **0 intentos**: Figura completa (ahorcado)[file:99]
+- **0 intentos**: Figura completa (ahorcado)
 
 ---
 
@@ -179,24 +172,24 @@ El proyecto está estructurado en cuatro clases principales siguiendo el princip
 ### Sistema de Categorías
 - Palabras organizadas por categorías temáticas
 - Selección dinámica de categoría al iniciar el juego
-- Fácil expansión agregando categorías al archivo JSON[file:100]
+- Fácil expansión agregando categorías al archivo JSON
 
 ### Persistencia de Estado
 - El progreso del juego se guarda automáticamente en la sesión PHP
 - El jugador puede cerrar el navegador y continuar más tarde
-- Sistema de namespace para evitar conflictos en `$_SESSION`[file:102]
+- Sistema de namespace para evitar conflictos en `$_SESSION`
 
 ### Interfaz Responsiva
 - Diseño adaptable a dispositivos móviles y de escritorio
 - Teclado virtual con todas las letras del alfabeto
 - Feedback visual inmediato de letras usadas
-- Animaciones y transiciones suaves[file:99]
+- Animaciones y transiciones suaves
 
 ### Validación Robusta
 - Prevención de letras duplicadas
 - Normalización automática a MAYÚSCULAS
 - Validación de entrada de usuario
-- Manejo de excepciones para errores de archivo[file:100][file:101]
+- Manejo de excepciones para errores de archivo.
 
 ---
 
@@ -231,7 +224,9 @@ proyecto-ahorcado/
 ## 🎨 Capturas de Pantalla
 
 ### Diseño Inicial (Boceto)
-![Boceto del diseño](boceto.jpg)
+<p align="center">
+  <img width="600" src="/ahorcado1/src/images/boceto.png" alt="Boceto del diseño">
+</p>
 
 El boceto muestra la estructura planificada del juego con:
 - Selector de categoría en la parte superior
@@ -241,7 +236,9 @@ El boceto muestra la estructura planificada del juego con:
 - Teclado de letras interactivo
 
 ### Implementación Final
-![Juego en acción](ahorcado1.jpg)
+<p align="center">
+  <img width="600" src="/ahorcado1/src/images/ahorcado1.png" alt="Boceto del diseño">
+</p>
 
 La implementación final incluye:
 - Interfaz moderna y colorida
@@ -277,47 +274,8 @@ La implementación final incluye:
      - Colores del tema
      - Velocidad de animaciones
 
----
-
-## 👨‍💻 Autor
-
-**@jpexposito**
-
----
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible para fines educativos.
-
----
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Para cambios importantes:
-
-1. Fork el proyecto
-2. Crea una rama para tu característica (`git checkout -b feature/NuevaCaracteristica`)
-3. Commit tus cambios (`git commit -m 'Añadir nueva característica'`)
-4. Push a la rama (`git push origin feature/NuevaCaracteristica`)
-5. Abre un Pull Request
-
----
-
-## 📝 Notas Técnicas
-
-### Ventajas del Diseño
-
-- **Separación de responsabilidades**: Cada clase tiene una única responsabilidad bien definida
-- **Facilidad de pruebas**: Las clases son independientes y fáciles de probar unitariamente
-- **Escalabilidad**: Agregar nuevas características es sencillo sin modificar el código existente
-- **Mantenibilidad**: El código es limpio, legible y bien documentado
-
-### Patrones Utilizados
-
-- **Patrón de Namespace**: Para organizar el espacio de sesión
-- **Factory Method**: En `WordProvider` para obtener palabras aleatorias
-- **State Pattern**: Para serializar y restaurar el estado del juego
-
----
+---
+
+
 
 ¡Disfruta jugando al Ahorcado! 🎉
