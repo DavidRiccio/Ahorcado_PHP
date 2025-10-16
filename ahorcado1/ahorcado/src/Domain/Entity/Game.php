@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Domain\Entity;
+namespace Domain\Entity; 
+
+
 
 final class Game
 {
@@ -24,6 +26,8 @@ final class Game
         }
     }
 
+    
+    
     public function getMaskedWord(): string
     {
         $masked = '';
@@ -80,6 +84,7 @@ final class Game
     public function toState(): array
     {
         return [
+            'word' => $this->word,
             'attemptsLeft' => $this->attemptsLeft,
             'usedLetters' => $this->usedLetters
         ];
